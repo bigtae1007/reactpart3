@@ -18,7 +18,8 @@ const StText = styled.div`
         break;
     }
   }}
-  color: ${({ color }) => `var(--${color})`}
+  color: ${({ color }) => `var(--${color})`};
+  word-break: break-all;
 `;
 
 export const head01 = css`

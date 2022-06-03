@@ -13,6 +13,9 @@ const GlobalStyle = createGlobalStyle`
   button {
     cursor: pointer;
   }
+  body{
+    margin-top: 80px;
+  }
   :root {
     --black : #333333;
     --white: #ffffff;
@@ -20,6 +23,7 @@ const GlobalStyle = createGlobalStyle`
     --green : #00B98D;
     --red :#F85151; 
     --blue : #0085FF;
+    --dGrey : #aaa;
   }
 `;
 

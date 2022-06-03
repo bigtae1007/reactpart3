@@ -19,7 +19,8 @@ export default function Header() {
 }
 
 const WrapHeadDiv = styled.div`
-  border: 1px solid #000;
+  background-color: var(--white);
+  border-bottom: 3px double var(--dGrey);
   width: 100%;
   height: 60px;
   display: flex;

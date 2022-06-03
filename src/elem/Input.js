@@ -7,6 +7,8 @@ export default function Input({ children, ...restProps }) {
 
 const StInput = styled.input`
   border: none;
+  min-width: 500px;
+  width: 100%;
   border-bottom: 1px solid var(--black);
   padding: 5px 10px;
   outline: none;

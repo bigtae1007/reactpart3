@@ -26,6 +26,7 @@ const Btn = styled.button`
   color: ${({ color }) => `var(--${color})`};
   background-color: ${({ bgcolor }) => `var(--${bgcolor})`};
   height: 40px;
+  border-radius: 15px;
 `;
 
 export const size1 = css`
