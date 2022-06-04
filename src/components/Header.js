@@ -1,16 +1,36 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../elem/Button";
+import { Link } from "react-router-dom";
 
 export default function Header() {
+  const navigate = useNavigate();
   return (
     <WrapHeadDiv>
-      <LinkHome />
+      <Link to="/">
+        <LinkHome />
+      </Link>
       <WrapBtn>
-        <Button size="size2" border={true} color="white" bgcolor="blue">
+        <Button
+          size="size2"
+          border={true}
+          color="white"
+          bgcolor="blue"
+          onClick={() => {
+            navigate("login");
+          }}
+        >
           로그인
         </Button>
-        <Button size="size2" color="blue" bgcolor="grey">
+        <Button
+          size="size2"
+          color="blue"
+          bgcolor="grey"
+          onClick={() => {
+            navigate("sign");
+          }}
+        >
           회원가입
         </Button>
       </WrapBtn>

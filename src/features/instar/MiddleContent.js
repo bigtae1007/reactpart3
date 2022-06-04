@@ -1,14 +1,21 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 //컴포넌트
 import Image from "../../elem/Image";
 import Text from "../../elem/Text";
 
 export default function MiddleContent() {
+  const navigate = useNavigate();
   return (
     <>
       <WrapTextImg>
-        <TextDiv>
+        <TextDiv
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            navigate("detail/id");
+          }}
+        >
           <Text color="black" font="head02">
             asdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdas
           </Text>

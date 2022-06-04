@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import styled from "styled-components";
+import Header from "./components/Header";
+// 컴포넌트
+import GlobalStyle from "./elem/GlobalStyle";
+import Sign from "./route/Sign";
+import Comment from "./route/Comment";
 
+import Mainpage from "./route/Mainpage";
+import { Route, Routes } from "react-router-dom";
+import Login from "./route/Login";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <GlobalStyle />
+      <Header />
+      <Routes>
+        <Route path="/" element={<Mainpage />} />
+        <Route path="/detail/:id" element={<Comment />} />
+        <Route path="sign" element={<Sign />} />
+        <Route path="login" element={<Login />} />
+      </Routes>
     </div>
   );
 }
