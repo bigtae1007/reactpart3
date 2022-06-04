@@ -1,33 +1,42 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../elem/Button";
 import Input from "../../elem/Input";
 import Text from "../../elem/Text";
 import { auth } from "../../firbase";
+import { changeLogin } from "../../redux/modules/userSlice";
 
 export default function LoginForm() {
+  const nowLoginState = useSelector((state) => state.user.login);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [check, setCheck] = useState(true);
   const [dataList, setDataList] = useState({
     email: "",
     password: "",
   });
-  // submit 로그인 이벤트
+  // submit 이벤트
   const login = (e) => {
     e.preventDefault();
     loginFB(dataList);
-    navigate("/");
   };
 
+  // ID, PASSWORD 일치 확인
   const loginFB = async (data) => {
-    const user = await signInWithEmailAndPassword(
-      auth,
-      data.email,
-      data.password
-    );
-    console.log(user);
+    try {
+      const user = await signInWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      );
+      dispatch(changeLogin(true));
+      navigate("/");
+    } catch (error) {
+      alert("아이디 혹은 비밀번호가 틀렸습니다.");
+    }
   };
   // input 관리
   const inputChange = (e) => {
@@ -35,6 +44,7 @@ export default function LoginForm() {
     setDataList({ ...dataList, [id]: value });
   };
 
+  // input onchange 발생
   React.useEffect(() => {
     // 버튼 잠금
     if (dataList.email !== "" && dataList.password !== "") {
@@ -43,6 +53,14 @@ export default function LoginForm() {
       setCheck(true);
     }
   }, [dataList]);
+
+  // 로그인 중일 시 페이지 로그인 이전 페이지로 이동
+  React.useEffect(() => {
+    if (nowLoginState) {
+      navigate(-1);
+      alert("로그인 이전 화면으로 이동합니다.");
+    }
+  }, []);
   return (
     <>
       <WrapForm onSubmit={login}>
