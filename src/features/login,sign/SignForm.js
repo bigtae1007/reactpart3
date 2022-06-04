@@ -1,8 +1,10 @@
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "../../elem/Button";
 import Input from "../../elem/Input";
 import Text from "../../elem/Text";
+import { auth } from "../../firbase";
 
 export default function SignForm() {
   const [check, setCheck] = useState(true);
@@ -12,16 +14,28 @@ export default function SignForm() {
     password: "",
     passwordCheck: "",
   });
+  //submit 이벤트 회원가입
   const sign = (e) => {
     e.preventDefault();
+    signupFB(dataList);
   };
-
+  const signupFB = async (data) => {
+    const user = await createUserWithEmailAndPassword(
+      auth,
+      data.email,
+      data.password
+    );
+    console.log(data, "헤");
+    console.log(user);
+  };
+  // input 관리
   const inputChange = (e) => {
     const { value, id } = e.target;
     setDataList({ ...dataList, [id]: value });
   };
 
   React.useEffect(() => {
+    // 버튼 잠금
     if (
       dataList.email !== "" &&
       dataList.password !== "" &&
