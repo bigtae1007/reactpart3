@@ -4,12 +4,21 @@ import MiddleContent from "./MiddleContent";
 import TopContent from "./TopContent";
 import BottomContent from "./BottomContent";
 
-export default function Content() {
+export default function Content({ post, index }) {
   return (
     <>
-      <TopContent />
-      <MiddleContent />
-      <BottomContent />
+      <TopContent
+        profile={post.ownerProfile}
+        owner={post.owner}
+        date={post.postDate}
+      />
+      <MiddleContent
+        text={post.postText}
+        img={post.img}
+        id={post.id}
+        index={index}
+      />
+      <BottomContent commentCount={post.comment.length} />
     </>
   );
 }

@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Image from "../../elem/Image";
 import Text from "../../elem/Text";
 
-export default function MiddleContent() {
+export default function MiddleContent({ text, img, id, index }) {
   const navigate = useNavigate();
   return (
     <>
@@ -13,11 +13,11 @@ export default function MiddleContent() {
         <TextDiv
           style={{ cursor: "pointer" }}
           onClick={() => {
-            navigate("detail/id");
+            navigate(`/detail/${id}/${index}`);
           }}
         >
           <Text color="black" font="head02">
-            asdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdasasdas
+            {text}
           </Text>
         </TextDiv>
         <Image size="middle" />

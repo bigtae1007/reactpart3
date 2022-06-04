@@ -3,7 +3,7 @@ import styled from "styled-components";
 //컴포넌트
 import Text from "../../elem/Text";
 
-export default function BottomContent() {
+export default function BottomContent({ commentCount }) {
   return (
     <>
       <WrapFlex>
@@ -12,7 +12,7 @@ export default function BottomContent() {
             좋아요 <span>1</span>개
           </Text>
           <Text font="body">
-            댓글 <span>1</span>개
+            댓글 <span>{commentCount}</span>개
           </Text>
         </WrapCount>
         <HeartText>♥</HeartText>
@@ -39,4 +39,6 @@ const WrapCount = styled.div`
 
 const HeartText = styled.p`
   font-size: 3rem;
+  color: var(--grey);
+  cursor: pointer;
 `;

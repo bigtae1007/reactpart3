@@ -4,19 +4,19 @@ import styled from "styled-components";
 import Image from "../../elem/Image";
 import Text from "../../elem/Text";
 
-export default function TopContent() {
+export default function TopContent({ profile, owner, date }) {
   return (
     <>
       <WrapTopContent>
         <WrapProfile>
           <Image size="profile" />
           <Text color="black" font="body">
-            id가 들어가야지 id가 들어가야지 id가 들어가야지 id가 들어가야지 id가
+            {profile}
           </Text>
         </WrapProfile>
 
         <Text color="dGrey" font="body">
-          시간이 들어가야 겠네요
+          {date}
         </Text>
       </WrapTopContent>
     </>

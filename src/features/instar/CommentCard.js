@@ -4,19 +4,19 @@ import styled from "styled-components";
 import Image from "../../elem/Image";
 import Text from "../../elem/Text";
 
-export default function CommentCard() {
+export default function CommentCard({ date, name, profile, text }) {
   return (
     <>
       <WrapComment>
         <Image size="profile" />
         <Text font="body" style={{ width: "100px" }}>
-          이름
+          {name}
         </Text>
         <Text font="body" style={{ minWidth: "100px", width: "200px" }}>
-          댓글 내용이 들어가겠죠
+          {text}
         </Text>
         <Text font="body" color="dGrey">
-          여기엔 날짜가 들어가야대용
+          {date}
         </Text>
       </WrapComment>
     </>
