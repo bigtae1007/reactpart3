@@ -32,11 +32,18 @@ export default function LoginForm() {
         data.email,
         data.password
       );
+      const storgeData = {
+        id: data.email,
+        expire: Date.now() + /*12 * 60 * 60 **/ 1000,
+      };
+      localStorage.setItem("user", JSON.stringify(storgeData));
       dispatch(changeLogin(true));
-      navigate("/");
+      alert("로그인이 완료됐습니다");
     } catch (error) {
       alert("아이디 혹은 비밀번호가 틀렸습니다.");
+      return;
     }
+    navigate("/");
   };
   // input 관리
   const inputChange = (e) => {

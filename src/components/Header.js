@@ -3,9 +3,24 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../elem/Button";
 import { Link } from "react-router-dom";
-
-export default function Header() {
+import { auth } from "../firbase";
+import { signOut } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { changeLogin } from "../redux/modules/userSlice";
+export default function Header({ loginState, setloginState }) {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const logOut = async () => {
+    const storge = JSON.parse(localStorage.getItem("user"));
+    if (storge) {
+      localStorage.removeItem("user");
+    }
+    dispatch(changeLogin(false));
+    alert("로그아웃");
+    signOut(auth).then(() => {
+      setloginState(false);
+    });
+  };
   return (
     <WrapHeadDiv>
       <Link to="/">
@@ -18,20 +33,20 @@ export default function Header() {
           color="white"
           bgcolor="blue"
           onClick={() => {
-            navigate("login");
+            loginState ? navigate("/login") : navigate("/login");
           }}
         >
-          로그인
+          {loginState ? "알림" : "로그인"}
         </Button>
         <Button
           size="size2"
           color="blue"
           bgcolor="grey"
           onClick={() => {
-            navigate("sign");
+            loginState ? logOut() : navigate("/sign");
           }}
         >
-          회원가입
+          {loginState ? "로그아웃" : "회원가입"}
         </Button>
       </WrapBtn>
     </WrapHeadDiv>

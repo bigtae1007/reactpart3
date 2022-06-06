@@ -20,13 +20,15 @@ export default function SignForm() {
     signupFB(dataList);
   };
   const signupFB = async (data) => {
-    const user = await createUserWithEmailAndPassword(
-      auth,
-      data.email,
-      data.password
-    );
-    console.log(data, "헤");
-    console.log(user);
+    try {
+      const user = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      );
+    } catch (error) {
+      alert("동일한 아이디가 존재합니다");
+    }
   };
   // input 관리
   const inputChange = (e) => {
