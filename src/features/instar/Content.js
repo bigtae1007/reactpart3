@@ -17,6 +17,7 @@ export default function Content({ post, index }) {
         img={post.img}
         id={post.id}
         index={index}
+        layout={post.layout}
       />
       <BottomContent commentCount={post.comment.length} />
     </>

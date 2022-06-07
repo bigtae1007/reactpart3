@@ -1,11 +1,14 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-export default function Image({ children, ...restProps }) {
-  return <StImage {...restProps} />;
+export default function Image({ children, img, ...restProps }) {
+  return <StImage img={img} {...restProps} />;
 }
 
 const StImage = styled.div`
+  background-image: url(${({ img }) => img});
+  background-repeat: no-repeat;
+  background-size: contain;
   ${({ size }) => {
     switch (size) {
       case "big":
@@ -18,6 +21,9 @@ const StImage = styled.div`
         break;
     }
   }};
+  ${({ img }) => {
+    return null;
+  }}
 `;
 
 export const big = css``;

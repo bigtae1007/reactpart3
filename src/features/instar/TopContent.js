@@ -9,9 +9,9 @@ export default function TopContent({ profile, owner, date }) {
     <>
       <WrapTopContent>
         <WrapProfile>
-          <Image size="profile" />
+          <Image size="profile" img={profile} />
           <Text color="black" font="body">
-            {profile}
+            {owner}
           </Text>
         </WrapProfile>
 

@@ -86,19 +86,14 @@ const postSlice = createSlice({
     error: null,
   },
   reducers: {
-    addUser: (state, action) => {
-      // state.user = [...state.user, action.payload];
-      console.log(action.payload);
-    },
-    changeLogin: (state, action) => {
-      console.log(action);
-      state.login = action.payload;
+    addPost: (state, action) => {
+      state.post = [action.payload, ...state.post];
     },
     getRequest: (state, action) => {
       state.loading = action.payload;
     },
     getRequestSuccess: (state, action) => {
-      console.log("성공", action);
+      state.post = action.payload;
     },
     getRequestError: (state, action) => {
       state.error = action.payload;
@@ -106,37 +101,38 @@ const postSlice = createSlice({
   },
 });
 
-// export const __addUser = (payload) => async (dispatch, getState) => {
-//   dispatch(getRequest(true));
-//   try {
-//     console.log(payload);
-//   } catch (error) {
-//     dispatch(getRequestError(error));
-//   } finally {
-//     dispatch(getRequest(false));
-//   }
-// };
-// export const __getMemos = () => {
-//   return async function (dispatch) {
-//     // 요청 시작과 함께 loading true로 변경
-//     dispatch(getRequest(true));
-//     try {
-//       // 성공시 데이터 store 저장 액션
-//       const memo_data = await getDocs(collection(db, "memo"));
-//       const memo_list = [];
-//       memo_data.forEach((doc) => {
-//         memo_list.push({ id: doc.id, ...doc.data() });
-//       });
-//       dispatch(getRequestSuccess(memo_list));
-//     } catch (error) {
-//       // 에러코드 저장 액션
-//       dispatch(getRequestError(error));
-//     } finally {
-//       // 끝나고 load false로 변경
-//       dispatch(getRequest(false));
-//     }
-//   };
-// };
+export const __addPost = (payload) => async (dispatch, getState) => {
+  dispatch(getRequest(true));
+  try {
+    const add_Post_data = await addDoc(collection(db, "post"), payload);
+    dispatch(addPost({ id: add_Post_data.id, ...payload }));
+  } catch (error) {
+    dispatch(getRequestError(error));
+  } finally {
+    dispatch(getRequest(false));
+  }
+};
+export const __getPosts = () => {
+  return async function (dispatch) {
+    // 요청 시작과 함께 loading true로 변경
+    dispatch(getRequest(true));
+    try {
+      // 성공시 데이터 store 저장 액션
+      const post_data = await getDocs(collection(db, "post"));
+      const post_list = [];
+      post_data.forEach((doc) => {
+        post_list.push({ id: doc.id, ...doc.data() });
+      });
+      dispatch(getRequestSuccess(post_list));
+    } catch (error) {
+      // 에러코드 저장 액션
+      dispatch(getRequestError(error));
+    } finally {
+      // 끝나고 load false로 변경
+      dispatch(getRequest(false));
+    }
+  };
+};
 
 export const {
   changeName,
@@ -144,5 +140,6 @@ export const {
   getRequestError,
   getRequestSuccess,
   changeLogin,
+  addPost,
 } = postSlice.actions;
 export default postSlice.reducer;

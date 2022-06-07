@@ -5,11 +5,11 @@ import styled from "styled-components";
 import Image from "../../elem/Image";
 import Text from "../../elem/Text";
 
-export default function MiddleContent({ text, img, id, index }) {
+export default function MiddleContent({ text, img, id, index, layout }) {
   const navigate = useNavigate();
   return (
     <>
-      <WrapTextImg>
+      <WrapTextImg layout={layout}>
         <TextDiv
           style={{ cursor: "pointer" }}
           onClick={() => {
@@ -20,7 +20,7 @@ export default function MiddleContent({ text, img, id, index }) {
             {text}
           </Text>
         </TextDiv>
-        <Image size="middle" />
+        <Image img={img} size="middle" />
       </WrapTextImg>
     </>
   );
@@ -29,12 +29,13 @@ export default function MiddleContent({ text, img, id, index }) {
 const WrapTextImg = styled.div`
   border: 1px dotted #eee;
   width: 100%;
-  height: 300px;
+  height: 600px;
   display: flex;
   justify-content: space-around;
   gap: 10px;
   align-items: center;
   padding: 10px;
+  flex-direction: ${({ layout }) => layout};
 `;
 
 const TextDiv = styled.div`
