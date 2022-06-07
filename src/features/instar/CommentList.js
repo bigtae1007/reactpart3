@@ -4,7 +4,6 @@ import styled from "styled-components";
 import CommentCard from "./CommentCard";
 
 export default function CommentList({ comment }) {
-  console.log(comment);
   return (
     <>
       {comment.map((v, l) => {

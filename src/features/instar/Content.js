@@ -19,7 +19,10 @@ export default function Content({ post, index }) {
         index={index}
         layout={post.layout}
       />
-      <BottomContent commentCount={post.comment.length} />
+      <BottomContent
+        commentCount={post.comment.length}
+        heartCount={post.heart?.length}
+      />
     </>
   );
 }

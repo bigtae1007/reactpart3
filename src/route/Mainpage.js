@@ -7,7 +7,6 @@ import AddPosting from "../features/instar/AddPosting";
 
 export default function Mainpage({ loginState }) {
   const postData = useSelector((state) => state.post.post);
-  console.log(postData, "데이터보자");
   return (
     <>
       {postData.map((v, l) => {

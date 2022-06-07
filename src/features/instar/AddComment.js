@@ -21,4 +21,5 @@ const WrapAddCommnet = styled.div`
   display: flex;
   gap: 30px;
   padding: 0 30px;
+  margin-bottom: 30px;
 `;

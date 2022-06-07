@@ -3,13 +3,13 @@ import styled from "styled-components";
 //컴포넌트
 import Text from "../../elem/Text";
 
-export default function BottomContent({ commentCount }) {
+export default function BottomContent({ commentCount, heartCount }) {
   return (
     <>
       <WrapFlex>
         <WrapCount>
           <Text font="body">
-            좋아요 <span>1</span>개
+            좋아요 <span>{heartCount}</span>개
           </Text>
           <Text font="body">
             댓글 <span>{commentCount}</span>개

@@ -34,7 +34,7 @@ export default function LoginForm() {
       );
       const storgeData = {
         id: data.email,
-        expire: Date.now() + /*12 * 60 * 60 **/ 1000,
+        expire: Date.now() + 12 * 60 * 60 * 1000,
       };
       localStorage.setItem("user", JSON.stringify(storgeData));
       dispatch(changeLogin(true));
@@ -67,7 +67,7 @@ export default function LoginForm() {
       navigate(-1);
       alert("로그인 이전 화면으로 이동합니다.");
     }
-  }, []);
+  }, [nowLoginState]);
   return (
     <>
       <WrapForm onSubmit={login}>

@@ -14,6 +14,8 @@ const StText = styled.div`
         return head02;
       case "body":
         return body;
+      case "big":
+        return big;
       default:
         break;
     }
@@ -33,4 +35,8 @@ export const head02 = css`
 
 export const body = css`
   font-size: 12px;
+`;
+export const big = css`
+  font-size: 4rem;
+  font-weight: bold;
 `;

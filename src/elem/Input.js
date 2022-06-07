@@ -7,9 +7,9 @@ export default function Input({ children, ...restProps }) {
 
 const StInput = styled.input`
   border: none;
-  min-width: 500px;
+  min-width: 200px;
   width: 100%;
-  border-bottom: 1px solid var(--black);
+  border-bottom: 1px solid var(--blue);
   padding: 5px 10px;
   outline: none;
   :focus {

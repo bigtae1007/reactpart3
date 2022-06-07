@@ -1,8 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export default function AddPosting() {
-  return <AddBtn>추가 버튼</AddBtn>;
+  return (
+    <Link to="/add">
+      <AddBtn>추가 버튼</AddBtn>
+    </Link>
+  );
 }
 
 const AddBtn = styled.button`
