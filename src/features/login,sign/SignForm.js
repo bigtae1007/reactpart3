@@ -1,12 +1,17 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "../../elem/Button";
 import Input from "../../elem/Input";
 import Text from "../../elem/Text";
 import { auth } from "../../firbase";
+import { changeLogin } from "../../redux/modules/userSlice";
 
 export default function SignForm() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [check, setCheck] = useState(true);
   const [dataList, setDataList] = useState({
     email: "",
@@ -26,9 +31,18 @@ export default function SignForm() {
         data.email,
         data.password
       );
+      const storgeData = {
+        id: data.email,
+        expire: Date.now() + 12 * 60 * 60 * 1000,
+      };
+      localStorage.setItem("user", JSON.stringify(storgeData));
+      dispatch(changeLogin(true));
+      alert("로그인이 완료됐습니다");
     } catch (error) {
       alert("동일한 아이디가 존재합니다");
+      return;
     }
+    navigate("/");
   };
   // input 관리
   const inputChange = (e) => {
