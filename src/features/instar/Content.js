@@ -20,8 +20,9 @@ export default function Content({ post, index }) {
         layout={post?.layout}
       />
       <BottomContent
+        id={post?.id}
         commentCount={post?.comment?.length}
-        heartCount={post?.heart?.length}
+        heart={post?.heart}
       />
     </>
   );

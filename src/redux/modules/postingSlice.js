@@ -96,6 +96,22 @@ const postSlice = createSlice({
       });
       myPost[0].comment = [action.payload, ...myPost[0].comment];
     },
+    addHeart: (state, action) => {
+      const myHeartPost = state.post.filter((v) => {
+        return v?.id === action.payload.id ? true : false;
+      });
+      myHeartPost[0].heart = [action.payload.myId, ...myHeartPost[0].heart];
+    },
+    deleteHeart: (state, action) => {
+      const myHeartPost = state.post.filter((v) => {
+        return v?.id === action.payload.id ? true : false;
+      });
+      const newHeart = myHeartPost[0]?.heart.filter((v) =>
+        v === action.payload.myId ? false : true
+      );
+
+      myHeartPost[0].heart = newHeart;
+    },
     getRequest: (state, action) => {
       state.loading = action.payload;
     },
@@ -107,6 +123,46 @@ const postSlice = createSlice({
     },
   },
 });
+export const __deleteHeart = (payload) => async (dispatch, getState) => {
+  dispatch(getRequest(true));
+  try {
+    const docRef = doc(db, "post", payload.id);
+    const storeData = getState().post.post;
+    const beforeHeart = storeData.filter((v) => {
+      return v.id === payload.id ? true : false;
+    });
+    const heartData = beforeHeart[0].heart;
+    const newHeart = heartData.filter((v) =>
+      v === payload.myId ? false : true
+    );
+    await updateDoc(docRef, { heart: newHeart });
+    dispatch(deleteHeart(payload));
+  } catch (error) {
+    console.log(error);
+    dispatch(getRequestError(error));
+  } finally {
+    dispatch(getRequest(false));
+  }
+};
+
+export const __addHeart = (payload) => async (dispatch, getState) => {
+  dispatch(getRequest(true));
+  try {
+    const docRef = doc(db, "post", payload.id);
+    const storeData = getState().post.post;
+    const beforeHeart = storeData.filter((v) => {
+      return v.id === payload.id ? true : false;
+    });
+    const heartData = beforeHeart[0].heart;
+    await updateDoc(docRef, { heart: [...heartData, payload.myId] });
+    dispatch(addHeart(payload));
+  } catch (error) {
+    console.log(error);
+    dispatch(getRequestError(error));
+  } finally {
+    dispatch(getRequest(false));
+  }
+};
 
 export const __addPost = (payload) => async (dispatch, getState) => {
   dispatch(getRequest(true));
@@ -167,5 +223,7 @@ export const {
   changeLogin,
   addPost,
   addComment,
+  addHeart,
+  deleteHeart,
 } = postSlice.actions;
 export default postSlice.reducer;

@@ -1,21 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 //컴포넌트
 import Text from "../../elem/Text";
+import { __addHeart, __deleteHeart } from "../../redux/modules/postingSlice";
 
-export default function BottomContent({ commentCount, heartCount }) {
+export default function BottomContent({ commentCount, heart, id }) {
+  const [heartState, setHeart] = useState(false);
+  const dispatch = useDispatch();
+  const storge = JSON.parse(localStorage.getItem("user"));
+
+  React.useEffect(() => {
+    heart?.forEach((v) => {
+      if (v === storge.id) {
+        setHeart(true);
+        return;
+      }
+    });
+  }, [heart]);
+
+  const changeHeart = () => {
+    const storge = JSON.parse(localStorage.getItem("user"));
+    const heartData = {
+      id: id,
+      myId: storge.id,
+    };
+
+    if (heartState) {
+      dispatch(__deleteHeart(heartData));
+      setHeart(false);
+    } else {
+      dispatch(__addHeart(heartData));
+      setHeart(true);
+    }
+  };
   return (
     <>
       <WrapFlex>
         <WrapCount>
           <Text font="body">
-            좋아요 <span>{heartCount}</span>개
+            좋아요 <span>{heart?.length}</span>개
           </Text>
           <Text font="body">
             댓글 <span>{commentCount}</span>개
           </Text>
         </WrapCount>
-        <HeartText>♥</HeartText>
+        <HeartText heart={heartState} onClick={changeHeart}>
+          ♥
+        </HeartText>
       </WrapFlex>
     </>
   );
@@ -39,6 +71,6 @@ const WrapCount = styled.div`
 
 const HeartText = styled.p`
   font-size: 3rem;
-  color: var(--grey);
+  color: ${({ heart }) => (heart ? "var(--red)" : "var(--grey)")};
   cursor: pointer;
 `;
