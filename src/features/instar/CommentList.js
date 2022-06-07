@@ -4,16 +4,17 @@ import styled from "styled-components";
 import CommentCard from "./CommentCard";
 
 export default function CommentList({ comment }) {
+  console.log(comment);
   return (
     <>
-      {comment.map((v, l) => {
+      {comment?.map((v, l) => {
         return (
           <CommentCard
             key={l}
-            date={v.commentDate}
-            name={v.name}
+            date={v.date}
+            name={v.id}
             profile={v.profile}
-            text={v.commentText}
+            text={v.text}
           />
         );
       })}

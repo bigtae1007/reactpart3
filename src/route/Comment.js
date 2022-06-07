@@ -10,6 +10,7 @@ import CommentList from "../features/instar/CommentList";
 export default function Comment() {
   const { id, index } = useParams();
   const postData = useSelector((state) => state.post.post);
+  console.log(postData);
 
   React.useEffect(() => {
     window.scrollTo({
@@ -19,9 +20,9 @@ export default function Comment() {
 
   return (
     <>
-      <Content key={postData[index].id} post={postData[index]} index={index} />
+      <Content key={id} post={postData[index]} index={index} />
       <AddComment />
-      <CommentList comment={postData[index].comment} />
+      <CommentList comment={postData[index]?.comment} />
     </>
   );
 }

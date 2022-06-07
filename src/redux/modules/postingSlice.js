@@ -88,6 +88,13 @@ const postSlice = createSlice({
   reducers: {
     addPost: (state, action) => {
       state.post = [action.payload, ...state.post];
+      console.log(state.post);
+    },
+    addComment: (state, action) => {
+      const myPost = state.post.filter((v) => {
+        return v?.id === action.payload.postId ? true : false;
+      });
+      myPost[0].comment = [action.payload, ...myPost[0].comment];
     },
     getRequest: (state, action) => {
       state.loading = action.payload;
@@ -107,6 +114,24 @@ export const __addPost = (payload) => async (dispatch, getState) => {
     const add_Post_data = await addDoc(collection(db, "post"), payload);
     dispatch(addPost({ id: add_Post_data.id, ...payload }));
   } catch (error) {
+    dispatch(getRequestError(error));
+  } finally {
+    dispatch(getRequest(false));
+  }
+};
+export const __addComment = (payload) => async (dispatch, getState) => {
+  dispatch(getRequest(true));
+  try {
+    const docRef = doc(db, "post", payload.postId);
+    const storeData = getState().post.post;
+    const beforeComment = storeData.filter((v) => {
+      return v.id === payload.postId ? true : false;
+    });
+    const commentdata = beforeComment[0].comment;
+    await updateDoc(docRef, { comment: [...commentdata, payload] });
+    dispatch(addComment(payload));
+  } catch (error) {
+    console.log(error);
     dispatch(getRequestError(error));
   } finally {
     dispatch(getRequest(false));
@@ -141,5 +166,6 @@ export const {
   getRequestSuccess,
   changeLogin,
   addPost,
+  addComment,
 } = postSlice.actions;
 export default postSlice.reducer;
