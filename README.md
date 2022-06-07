@@ -10,10 +10,15 @@
 ## 폴더 정리
 
 component - header, looading page 특정 route가 아닌 다양하게 사용하는 컴포넌트
+
 elem - css 관련 컴포넌트
+
 features 페이지 컴포넌트 요소들 (login/logout과 전반적인 페이지 구분)
+
 redux - firebase, redux 등 상태관리 모듈
+
 route - app.js에서 route할 컴포넌트들이 모여있는 컴포넌트
+
 
 ## 기능 
 1. 게시글 
