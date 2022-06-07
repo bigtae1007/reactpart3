@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../elem/Button";
 import Text from "../elem/Text";
@@ -10,13 +11,22 @@ import PreviewPost from "../features/instar/PreviewPost";
 import { __addPost } from "../redux/modules/postingSlice";
 
 export default function AddPost() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [img, setImg] = useState(
-    "http://phone.ybmclass.com/common_css/img/noimage.gif"
-  );
-  const [text, setText] = useState("텍스트가 들어갈 자리입니다.");
-  const [layout, setLayout] = useState("row");
+  const [img, setImg] = useState("");
+  // "http://phone.ybmclass.com/common_css/img/noimage.gif"
 
+  const [text, setText] = useState("");
+  const [layout, setLayout] = useState("");
+  const [btn, setBtn] = useState(true);
+  React.useEffect(() => {
+    // 버튼 잠금
+    if (text !== "" && layout !== "" && img !== "") {
+      setBtn(false);
+    } else {
+      setBtn(true);
+    }
+  }, [text, layout, img]);
   const addPost = () => {
     const today = new Date();
     const year = today.getFullYear();
@@ -41,6 +51,7 @@ export default function AddPost() {
       heart: [],
     };
     dispatch(__addPost(addPostData));
+    navigate("/");
   };
 
   return (
@@ -50,7 +61,13 @@ export default function AddPost() {
       <AddpostLayout setLayout={setLayout} />
       <AddPostText setText={setText} />
       <div>
-        <Button size="size1" color="white" bgcolor="blue" onClick={addPost}>
+        <Button
+          size="size1"
+          color="white"
+          bgcolor={btn ? "grey" : "blue"}
+          onClick={addPost}
+          disabled={btn}
+        >
           저장하기
         </Button>
       </div>
