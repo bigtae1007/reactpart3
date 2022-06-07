@@ -11,12 +11,14 @@ export default function BottomContent({ commentCount, heart, id }) {
   const storge = JSON.parse(localStorage.getItem("user"));
 
   React.useEffect(() => {
-    heart?.forEach((v) => {
-      if (v === storge.id) {
-        setHeart(true);
-        return;
-      }
-    });
+    if (storge) {
+      heart?.forEach((v) => {
+        if (v === storge.id) {
+          setHeart(true);
+          return;
+        }
+      });
+    }
   }, [heart]);
 
   const changeHeart = () => {

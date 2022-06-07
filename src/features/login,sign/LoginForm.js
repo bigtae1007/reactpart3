@@ -67,7 +67,7 @@ export default function LoginForm() {
       navigate(-1);
       alert("로그인 이전 화면으로 이동합니다.");
     }
-  }, [nowLoginState]);
+  }, []);
   return (
     <>
       <WrapForm onSubmit={login}>

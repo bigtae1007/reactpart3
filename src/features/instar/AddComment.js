@@ -3,11 +3,12 @@ import styled from "styled-components";
 //컴포넌트
 import Input from "../../elem/Input";
 import Button from "../../elem/Button";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { __addComment } from "../../redux/modules/postingSlice";
 
 export default function AddComment() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
 
@@ -16,6 +17,11 @@ export default function AddComment() {
     setText(e.target.value);
   };
   const addComment = () => {
+    if (text === "") {
+      alert("댓글을 입력해 주세요 !");
+      return;
+    }
+
     const today = new Date();
     const year = today.getFullYear();
     const month = ("0" + (today.getMonth() + 1)).slice(-2);
@@ -35,12 +41,18 @@ export default function AddComment() {
       date: dateString + " " + timeString,
     };
     dispatch(__addComment(commentData));
+    alert("댓글 작성 완료");
+    setText("");
   };
 
   return (
     <>
       <WrapAddCommnet>
-        <Input placeholder="20자 이내로 작성해주세요" onChange={textChange} />
+        <Input
+          placeholder="20자 이내로 작성해주세요"
+          onChange={textChange}
+          value={text}
+        />
         <Button
           size="size2"
           border="yes"
