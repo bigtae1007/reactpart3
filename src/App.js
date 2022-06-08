@@ -15,6 +15,7 @@ import AddPost from "./route/AddPost";
 import { useDispatch, useSelector } from "react-redux";
 import { __getPosts } from "./redux/modules/postingSlice";
 import ChangePost from "./route/ChangePost";
+import { useMediaQuery } from "react-responsive";
 
 function App() {
   const dispatch = useDispatch();
