@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function AddPosting() {
   return (
     <Link to="/add">
-      <AddBtn>추가 버튼</AddBtn>
+      <AddBtn>+</AddBtn>
     </Link>
   );
 }
@@ -19,4 +19,7 @@ const AddBtn = styled.button`
   border-radius: 50%;
   background-color: var(--blue);
   color: var(--white);
+  font-size: 4rem;
+  line-height: 10px;
+  border: none;
 `;

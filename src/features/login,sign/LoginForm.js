@@ -62,12 +62,12 @@ export default function LoginForm() {
   }, [dataList]);
 
   // 로그인 중일 시 페이지 로그인 이전 페이지로 이동
-  React.useEffect(() => {
-    if (nowLoginState) {
-      navigate(-1);
-      alert("로그인 이전 화면으로 이동합니다.");
-    }
-  }, []);
+  // React.useEffect(() => {
+  //   if (nowLoginState) {
+  //     navigate(-1);
+  //     alert("로그인 이전 화면으로 이동합니다.");
+  //   }
+  // }, []);
   return (
     <>
       <WrapForm onSubmit={login}>

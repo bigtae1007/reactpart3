@@ -14,11 +14,11 @@ import MoveLogin from "./route/MoveLogin";
 import AddPost from "./route/AddPost";
 import { useDispatch, useSelector } from "react-redux";
 import { __getPosts } from "./redux/modules/postingSlice";
+import ChangePost from "./route/ChangePost";
 
 function App() {
   const dispatch = useDispatch();
   dispatch(__getPosts());
-  const state = useSelector((state) => state.user.login);
   const [loginState, setloginState] = React.useState(false);
   const loginCheck = async (user) => {
     if (user) {
@@ -47,6 +47,7 @@ function App() {
       checkStorge();
     }
   }, []);
+
   return (
     <div className="App">
       <GlobalStyle />
@@ -57,6 +58,7 @@ function App() {
         <Route path="/sign" element={<Sign />} />
         <Route path="/login" element={<Login />} />
         <Route path="/add" element={<AddPost />} />
+        <Route path="/change/:id" element={<ChangePost />} />
 
         <Route path="/please-log" element={<MoveLogin />} />
       </Routes>

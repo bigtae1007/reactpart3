@@ -10,7 +10,6 @@ import CommentList from "../features/instar/CommentList";
 export default function Comment() {
   const { id, index } = useParams();
   const postData = useSelector((state) => state.post.post);
-  console.log(postData);
 
   React.useEffect(() => {
     window.scrollTo({

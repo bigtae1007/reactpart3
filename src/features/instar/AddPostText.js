@@ -4,7 +4,7 @@ import styled from "styled-components";
 export default function AddPostText({ setText, text }) {
   const changeText = (e) => {
     if (e.target.value === "") {
-      setText("텍스트가 들어갈 자리입니다.");
+      setText("");
     } else {
       setText(`${e.target.value}`);
     }
