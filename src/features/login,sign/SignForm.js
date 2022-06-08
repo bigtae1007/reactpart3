@@ -22,6 +22,10 @@ export default function SignForm() {
   //submit 이벤트 회원가입
   const sign = (e) => {
     e.preventDefault();
+    if (dataList.password !== dataList.passwordCheck) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
     signupFB(dataList);
   };
   const signupFB = async (data) => {
@@ -37,9 +41,9 @@ export default function SignForm() {
       };
       localStorage.setItem("user", JSON.stringify(storgeData));
       dispatch(changeLogin(true));
-      alert("로그인이 완료됐습니다");
+      alert("회원가입이 완료됐습니다");
     } catch (error) {
-      alert("동일한 아이디가 존재합니다");
+      alert("동일한 아이디가 존재하거나 형식이 잘못 됐습니다.");
       return;
     }
     navigate("/");
@@ -71,7 +75,13 @@ export default function SignForm() {
         <Label htmlFor="nick">닉네임</Label>
         <Input type="text" id="nick" required onChange={inputChange} />
         <Label htmlFor="password">비밀번호</Label>
-        <Input type="password" id="password" required onChange={inputChange} />
+        <Input
+          type="password"
+          id="password"
+          required
+          placeholder="8자리 이상으로 작성해주세요"
+          onChange={inputChange}
+        />
         <Label htmlFor="passwordCheck">비밀번호 확인</Label>
         <Input
           type="password"
