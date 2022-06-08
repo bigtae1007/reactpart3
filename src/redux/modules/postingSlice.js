@@ -43,6 +43,17 @@ const postSlice = createSlice({
       );
       myHeartPost[0].heart = newHeart;
     },
+    changePost: (state, action) => {
+      console.log(action.payload);
+      let index;
+      state.post.forEach((v, l) => {
+        if (v.id === action.payload.id) {
+          index = l;
+          return;
+        }
+      });
+      state.post[index] = { ...state.post[index], ...action.payload.post };
+    },
     deletePost: (state, action) => {
       const newPost = state.post.filter((v) => {
         return v.id === action.payload ? false : true;
@@ -60,15 +71,27 @@ const postSlice = createSlice({
     },
   },
 });
+
+export const __changePost = (payload) => async (dispatch, getState) => {
+  dispatch(getRequest(true));
+  try {
+    const docRef = doc(db, "post", payload.id);
+    // await updateDoc(docRef, { ...payload.post });
+    dispatch(changePost(payload));
+  } catch (error) {
+    dispatch(getRequestError(error));
+  } finally {
+    dispatch(getRequest(false));
+  }
+};
+
 export const __deletePost = (payload) => async (dispatch, getState) => {
   dispatch(getRequest(true));
   try {
     const docRef = doc(db, "post", payload);
-    console.log(payload, "미들");
     await deleteDoc(docRef);
     dispatch(deletePost(payload));
   } catch (error) {
-    console.log(error);
     dispatch(getRequestError(error));
   } finally {
     dispatch(getRequest(false));
@@ -90,7 +113,6 @@ export const __deleteHeart = (payload) => async (dispatch, getState) => {
     await updateDoc(docRef, { heart: newHeart });
     dispatch(deleteHeart(payload));
   } catch (error) {
-    console.log(error);
     dispatch(getRequestError(error));
   } finally {
     dispatch(getRequest(false));
@@ -178,5 +200,6 @@ export const {
   addHeart,
   deleteHeart,
   deletePost,
+  changePost,
 } = postSlice.actions;
 export default postSlice.reducer;

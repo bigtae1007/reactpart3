@@ -11,6 +11,7 @@ export default function Content({ post, index }) {
         profile={post?.ownerProfile}
         owner={post?.owner}
         date={post?.postDate}
+        id={post?.id}
       />
       <MiddleContent
         text={post?.postText}

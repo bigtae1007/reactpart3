@@ -3,8 +3,9 @@ import styled from "styled-components";
 //컴포넌트
 import Image from "../../elem/Image";
 import Text from "../../elem/Text";
+import ChangePost from "./ChangePostBtn";
 
-export default function TopContent({ profile, owner, date }) {
+export default function TopContent({ profile, owner, date, id }) {
   return (
     <>
       <WrapTopContent>
@@ -18,6 +19,7 @@ export default function TopContent({ profile, owner, date }) {
         <Text color="dGrey" font="body">
           {date}
         </Text>
+        <ChangePost id={id} />
       </WrapTopContent>
     </>
   );

@@ -1,16 +1,17 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import Button from "../../elem/Button";
 import { __deletePost } from "../../redux/modules/postingSlice";
 
-export default function ChangePost({ id }) {
+export default function ChangePostBtn({ id }) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const changePost = () => {
-    console.log(id);
-    console.log("aa");
+    navigate(`/change/${id}`);
   };
   const deletePost = () => {
     dispatch(__deletePost(id));
