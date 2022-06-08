@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import styled from "styled-components";
 import Button from "../elem/Button";
 import AddPostImg from "../features/instar/AddPostImg";
 import AddpostLayout from "../features/instar/AddPostLayout";
@@ -10,6 +9,7 @@ import PreviewPost from "../features/instar/PreviewPost";
 import { __addPost, __changePost } from "../redux/modules/postingSlice";
 
 export default function ChangePost() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const postList = useSelector((state) => state.post.post);
   const currentPost = postList.filter((v) => {
@@ -21,6 +21,11 @@ export default function ChangePost() {
   const [layout, setLayout] = useState(currentPost[0]?.layout);
   const [btn, setBtn] = useState(true);
 
+  React.useEffect(() => {
+    setImg(currentPost[0]?.img);
+    setText(currentPost[0]?.postText);
+    setLayout(currentPost[0]?.layout);
+  }, [postList]);
   React.useEffect(() => {
     // 버튼 잠금
     if (text !== "" && layout !== "" && img !== "") {
@@ -40,6 +45,7 @@ export default function ChangePost() {
       },
     };
     dispatch(__changePost(postData));
+    navigate("/");
   };
 
   return (

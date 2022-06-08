@@ -44,7 +44,6 @@ const postSlice = createSlice({
       myHeartPost[0].heart = newHeart;
     },
     changePost: (state, action) => {
-      console.log(action.payload);
       let index;
       state.post.forEach((v, l) => {
         if (v.id === action.payload.id) {
@@ -76,7 +75,7 @@ export const __changePost = (payload) => async (dispatch, getState) => {
   dispatch(getRequest(true));
   try {
     const docRef = doc(db, "post", payload.id);
-    // await updateDoc(docRef, { ...payload.post });
+    await updateDoc(docRef, { ...payload.post });
     dispatch(changePost(payload));
   } catch (error) {
     dispatch(getRequestError(error));
