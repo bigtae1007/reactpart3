@@ -14,81 +14,13 @@ import { async } from "@firebase/util";
 const postSlice = createSlice({
   name: "posting",
   initialState: {
-    post: [
-      {
-        img: "이미지 주소",
-        ownerProfile: "t123124ls",
-        id: "id를 갖오자",
-        owner: "작성자가 들어가겠지",
-        postText: "내용이 들어가자",
-        postDate: "만든 날짜?시간",
-        comment: [
-          {
-            profile: "사진",
-            name: "이름",
-            commentText: "댓124이 들어가자",
-            commentDate: "날짜가 들어가자",
-          },
-          {
-            profile: "사진",
-            name: "이름",
-            commentText: "댓글asd 들어가자",
-            commentDate: "날123 들어가자",
-          },
-        ],
-      },
-      {
-        img: "이미지 주소",
-        ownerProfile: "tkasdwls",
-        id: "id를ㅁㄴㅇㅁㄴㅇ자",
-        owner: "작성자가ㅁㄴㅇㅁㄴㄹ겠지",
-        postText: "내용이 들어ㅁㄴㄻㄴ자",
-        postDate: "만든 날ㅁㄴㅇㅁㄴㅇ시간",
-        comment: [
-          {
-            profile: "사진",
-            name: "이ㅁㄴㅇ름",
-            commentText: "댓ㅁㄴㅇㅁㄴㄹ들어가자",
-            commentDate: "날짜가 ㅁㄴㅇㅁㄴㅇ",
-          },
-          {
-            profile: "사진",
-            name: "이ㅁㄴㅇ름",
-            commentText: "댓ㅁㄴㅇㅁㄴㄹ들어가자",
-            commentDate: "날짜가 ㅁㄴㅇㅁㄴㅇ",
-          },
-          {
-            profile: "사진",
-            name: "이ㅁㄴㅇ름",
-            commentText: "댓ㅁㄴㅇㅁㄴㄹ들어가자",
-            commentDate: "날짜가 ㅁㄴㅇㅁㄴㅇ",
-          },
-        ],
-      },
-      {
-        img: "이미지 주소",
-        ownerProfile: "tkwls",
-        id: "id를 123",
-        owner: "작성자가 124지",
-        postText: "내용이37563가자",
-        postDate: "346436짜?시간",
-        comment: [
-          {
-            profile: "사진",
-            name: "이12412",
-            commentText: "댓글234112312들어가자",
-            commentDate: "날짜가56456가자",
-          },
-        ],
-      },
-    ],
+    post: [],
     loading: false,
     error: null,
   },
   reducers: {
     addPost: (state, action) => {
       state.post = [action.payload, ...state.post];
-      console.log(state.post);
     },
     addComment: (state, action) => {
       const myPost = state.post.filter((v) => {
@@ -109,8 +41,13 @@ const postSlice = createSlice({
       const newHeart = myHeartPost[0]?.heart.filter((v) =>
         v === action.payload.myId ? false : true
       );
-
       myHeartPost[0].heart = newHeart;
+    },
+    deletePost: (state, action) => {
+      const newPost = state.post.filter((v) => {
+        return v.id === action.payload ? false : true;
+      });
+      state.post = newPost;
     },
     getRequest: (state, action) => {
       state.loading = action.payload;
@@ -123,6 +60,21 @@ const postSlice = createSlice({
     },
   },
 });
+export const __deletePost = (payload) => async (dispatch, getState) => {
+  dispatch(getRequest(true));
+  try {
+    const docRef = doc(db, "post", payload);
+    console.log(payload, "미들");
+    await deleteDoc(docRef);
+    dispatch(deletePost(payload));
+  } catch (error) {
+    console.log(error);
+    dispatch(getRequestError(error));
+  } finally {
+    dispatch(getRequest(false));
+  }
+};
+
 export const __deleteHeart = (payload) => async (dispatch, getState) => {
   dispatch(getRequest(true));
   try {
@@ -225,5 +177,6 @@ export const {
   addComment,
   addHeart,
   deleteHeart,
+  deletePost,
 } = postSlice.actions;
 export default postSlice.reducer;
