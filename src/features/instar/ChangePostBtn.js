@@ -40,4 +40,8 @@ const WrapBtn = styled.div`
   justify-content: space-around;
   align-items: center;
   gap: 10px;
+  @media screen and (max-width: 700px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;

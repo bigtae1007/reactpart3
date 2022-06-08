@@ -6,6 +6,8 @@ import Text from "../../elem/Text";
 import ChangePost from "./ChangePostBtn";
 
 export default function TopContent({ profile, owner, date, id }) {
+  const storge = JSON.parse(localStorage.getItem("user"));
+
   return (
     <>
       <WrapTopContent>
@@ -19,7 +21,7 @@ export default function TopContent({ profile, owner, date, id }) {
         <Text color="dGrey" font="body">
           {date}
         </Text>
-        <ChangePost id={id} />
+        {storge?.id === owner ? <ChangePost id={id} /> : null}
       </WrapTopContent>
     </>
   );
@@ -27,6 +29,7 @@ export default function TopContent({ profile, owner, date, id }) {
 
 const WrapTopContent = styled.div`
   width: 100%;
+
   height: 70px;
   display: flex;
   justify-content: space-between;
